@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "",          // skip install step bawaan Node
-  "buildCommand": null,          // jangan jalankan build command apa pun
+  "installCommand": "",          
+  "buildCommand": null,          
   "functions": {
     "api/**/*.py": { "runtime": "python3.12" }
   },
