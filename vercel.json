@@ -1,13 +1,8 @@
 {
-    "builds" : [{
-        "src" : "WEB-KELAS/wsgi.py",
-        "use" : "@vercel/python",
-        "config": {"maxLamdaSize": "15mb,", "runtime": "python3.11.3"}
-    }],
-    "routers" : [
-        {
-            "src": "/(.*)",
-            "dest": "WEB-KELAS/wsgi.py"
-        }
-    ]
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --noinput",
+  "outputDirectory": "staticfiles",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/wsgi.py" }
+  ]
 }
