@@ -1,8 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --noinput",
-  "outputDirectory": "staticfiles",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/api/wsgi.py" }
-  ]
+  "installCommand": "",          // skip install step bawaan Node
+  "buildCommand": null,          // jangan jalankan build command apa pun
+  "functions": {
+    "api/**/*.py": { "runtime": "python3.12" }
+  },
+  "rewrites": [{ "source": "/(.*)", "destination": "/api/wsgi.py" }]
 }
