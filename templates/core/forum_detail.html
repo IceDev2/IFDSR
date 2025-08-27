@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}{{ item.judul }}{% endblock %}
+{% block content %}
+<article class="card mb-3">
+  {% if item.gambar %}
+  <img src="{{ item.gambar.url }}" class="card-img-top" alt="{{ item.judul }}">
+  {% endif %}
+  <div class="card-body">
+    <h2 class="card-title">{{ item.judul }}</h2>
+    <div class="text-muted small mb-3">oleh {{ item.author.username }} • {{ item.dibuat|date:"d M Y H:i" }}</div>
+    <div class="card-text">{{ item.isi|linebreaks }}</div>
+
+    {% if user.is_authenticated %}
+      {% if user.is_staff or user.id == item.author_id %}
+        <div class="mt-3">
+          <a class="btn btn-outline-primary btn-sm" href="{% url 'forum_edit' item.slug %}"><i class="bi bi-pencil"></i> Edit</a>
+          <a class="btn btn-outline-danger btn-sm" href="{% url 'forum_delete' item.slug %}"><i class="bi bi-trash"></i> Hapus</a>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</article>
+
+<section class="mb-4">
+  <h4>Komentar</h4>
+  {% for c in komentar %}
+    <div class="card mb-2"><div class="card-body">
+      <div class="small text-muted mb-1">{{ c.author.username }} • {{ c.dibuat|date:"d M Y H:i" }}</div>
+      <div>{{ c.isi|linebreaks }}</div>
+    </div></div>
+  {% empty %}
+    <p>Belum ada komentar.</p>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+  <form method="post" class="card p-3 mt-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary">Kirim Komentar</button>
+  </form>
+  {% else %}
+    <p class="mt-3">Silakan <a href="{% url 'login' %}">login</a> untuk berkomentar.</p>
+  {% endif %}
+</section>
+{% endblock %}

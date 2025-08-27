@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}{{ item.judul }}{% endblock %}
+{% block content %}
+<article>
+  <h2>{{ item.judul }}</h2>
+  <p class="text-muted">{{ item.tanggal_upload|date:"d M Y" }}{% if item.admin %} • oleh {{ item.admin.username }}{% endif %}</p>
+  {% if item.gambar_header %}
+  <img src="{{ item.gambar_header.url }}" class="img-fluid rounded mb-3" alt="header">
+  {% endif %}
+  <div>{{ item.isi|linebreaks }}</div>
+</article>
+{% endblock %}

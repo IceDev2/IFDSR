@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Album Foto{% endblock %}
+{% block content %}
+<h2>Album Foto</h2>
+<hr>
+<div class="row g-3">
+{% for a in items %}
+  <div class="col-md-3">
+    <div class="card h-100">
+      {% if a.cover %}
+      <img src="{{ a.cover.url }}" class="card-img-top" alt="cover">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ a.nama }}</h5>
+        <p class="card-text"><small class="text-muted">{{ a.tanggal_acara|date:"d M Y" }}</small></p>
+        <a href="{% url 'album_detail' a.pk %}" class="btn btn-primary btn-sm">Buka</a>
+      </div>
+    </div>
+  </div>
+{% empty %}
+  <p>Belum ada album.</p>
+{% endfor %}
+</div>
+{% endblock %}

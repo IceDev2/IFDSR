@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Dashboard</h2>
+<div class="row g-3 mt-1">
+  <div class="col-md-4">
+    <div class="card p-3"><h5>Total Pengumuman</h5><p class="display-6">{{ total_pengumuman }}</p></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3"><h5>Total Anggota</h5><p class="display-6">{{ total_anggota }}</p></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-3"><h5>Total Album</h5><p class="display-6">{{ total_album }}</p></div>
+  </div>
+</div>
+<p class="mt-3">Kelola konten lewat <a href="/admin/">Admin Django</a>.</p>
+{% endblock %}

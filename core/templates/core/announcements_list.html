@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Pengumuman{% endblock %}
+{% block content %}
+<h2>Pengumuman</h2>
+<hr>
+{% for p in items %}
+  <div class="mb-4">
+    <h4><a href="{% url 'announcement_detail' p.slug %}">{{ p.judul }}</a></h4>
+    <p class="text-muted">{{ p.tanggal_upload|date:"d M Y" }}{% if p.admin %} • oleh {{ p.admin.username }}{% endif %}</p>
+  </div>
+{% empty %}
+  <p>Belum ada pengumuman.</p>
+{% endfor %}
+{% endblock %}

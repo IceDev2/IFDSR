@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Anggota{% endblock %}
+{% block content %}
+<h2>Anggota</h2>
+<hr>
+<div class="row g-3">
+{% for m in items %}
+  <div class="col-md-3">
+    <div class="card h-100 text-center p-2">
+      {% if m.foto %}
+      <img src="{{ m.foto.url }}" class="card-img-top rounded" alt="{{ m.nama }}">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ m.nama }}</h5>
+        {% if m.jabatan %}<p class="text-muted">{{ m.jabatan }}</p>{% endif %}
+        {% if m.bio_singkat %}<p>{{ m.bio_singkat }}</p>{% endif %}
+        {% if m.quote %}<blockquote class="blockquote"><small>{{ m.quote }}</small></blockquote>{% endif %}
+        {% if m.instagram %}
+        <a class="btn btn-sm btn-outline-secondary" href="{{ m.instagram }}" target="_blank">Instagram</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% empty %}
+  <p>Belum ada anggota.</p>
+{% endfor %}
+</div>
+{% endblock %}

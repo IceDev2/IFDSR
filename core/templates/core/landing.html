@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block title %}{{ setting.nama_kelas|default:"IF D SR" }}{% endblock %}
+
+{% block content %}
+
+{# ===== HERO / HEADER KELAS ===== #}
+<div class="text-center mb-4">
+  <h1 class="mb-3 glow">{{ setting.nama_kelas|default:"Informatika D Sore" }}</h1>
+  {% if setting %}
+    {% if setting.hero_image %}
+      <img src="{{ setting.hero_image.url }}" class="img-fluid rounded mb-3" alt="Foto bareng terbaru">
+    {% endif %}
+    {% if setting.deskripsi_singkat %}
+      <p class="mt-1 text-muted">{{ setting.deskripsi_singkat }}</p>
+    {% endif %}
+  {% endif %}
+</div>
+
+{# ===== IMAGE SLIDER / CAROUSEL ===== #}
+{% if slider_items %}
+<div id="heroCarousel" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="4000">
+  <div class="carousel-indicators">
+    {% for it in slider_items %}
+      <button type="button"
+              data-bs-target="#heroCarousel"
+              data-bs-slide-to="{{ forloop.counter0 }}"
+              class="{% if forloop.first %}active{% endif %}"
+              aria-label="Slide {{ forloop.counter }}"></button>
+    {% endfor %}
+  </div>
+
+  <div class="carousel-inner rounded" style="border:1px solid var(--bs-border-color);">
+    {% for it in slider_items %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      <a href="{{ it.url }}" class="d-block position-relative">
+        <img src="{{ it.img_url }}" class="d-block w-100" alt="{{ it.title }}" style="height:420px; object-fit:cover;">
+        <div class="carousel-caption text-start">
+          <h5 class="mb-1">{{ it.title }}</h5>
+          <p class="small text-muted">{{ it.subtitle }}</p>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Prev</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+{% endif %}
+
+{# ===== PENGUMUMAN TERBARU ===== #}
+<h3 class="mt-4">Pengumuman Terbaru</h3>
+<div class="row g-3">
+  {% for p in pengumuman_terbaru %}
+  <div class="col-md-4">
+    <div class="card h-100">
+      {% if p.gambar_header %}
+        <img src="{{ p.gambar_header.url }}" class="card-img-top" alt="header pengumuman">
+      {% endif %}
+      <div class="card-body">
+        <h5 class="card-title">{{ p.judul }}</h5>
+        <p class="card-text"><small class="text-muted">{{ p.tanggal_upload|date:"d M Y" }}{% if p.admin %} • oleh {{ p.admin.username }}{% endif %}</small></p>
+        <a href="{% url 'announcement_detail' p.slug %}" class="btn btn-primary">Baca</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+    <p>Belum ada pengumuman.</p>
+  {% endfor %}
+</div>
+
+{# ===== ALBUM TERBARU / EVENT ===== #}
+<h3 class="mt-5">Album Terbaru</h3>
+<div class="row g-3">
+  {% for a in album_terbaru %}
+  <div class="col-md-3">
+    <div class="card h-100">
+      {% if a.cover %}
+        <a href="{% url 'album_detail' a.pk %}">
+          <img src="{{ a.cover.url }}" class="card-img-top" alt="cover {{ a.nama }}">
+        </a>
+      {% endif %}
+      <div class="card-body">
+        <h6 class="card-title">{{ a.nama }}</h6>
+        <p class="card-text"><small class="text-muted">{{ a.tanggal_acara|date:"d M Y" }}</small></p>
+        <a href="{% url 'album_detail' a.pk %}" class="btn btn-outline-primary btn-sm">Lihat</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+    <p>Belum ada album.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}
