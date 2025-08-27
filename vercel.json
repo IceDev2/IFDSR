@@ -3,5 +3,6 @@
   "framework": null,
   "installCommand": "",
   "buildCommand": null,
+  "functions": { "api/**/*.py": { "runtime": "python3.12" } },
   "rewrites": [{ "source": "/(.*)", "destination": "/api/wsgi.py" }]
 }
