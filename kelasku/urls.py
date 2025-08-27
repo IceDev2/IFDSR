@@ -10,6 +10,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),  # login, logout, password reset
     path('', include('core.urls')),
+    re_path(r"^.*$", landing),
 ]
 
 if settings.DEBUG:
